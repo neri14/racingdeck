@@ -1,0 +1,36 @@
+{
+  "Actions": [
+    {
+      "Icon": "icon", 
+      "Name": "RacingDeck", 
+      "States": [
+        {
+          "Image": "defaultImage",
+          "TitleAlignment": "middle", 
+          "FontSize": "17"
+        }
+      ], 
+      "SupportedInMultiActions": false,
+      "Tooltip": "This action is TBD", 
+      "UUID": "it.rokosz.racingdeck.racingdeck"
+    }
+  ], 
+  "SDKVersion": 2,
+  "Author": "Neri", 
+  "CodePathWin": "racingdeck.exe", 
+  "Description": "Simracing plugin.", 
+  "Name": "RacingDeck", 
+  "Icon": "pluginIcon", 
+  "URL": "https://www.rokosz.it/", 
+  "Version": "0.1",
+  "OS": [
+    {
+        "Platform": "windows", 
+        "MinimumVersion" : "10"
+    }
+  ],
+  "Software": 
+    {
+        "MinimumVersion" : "4.1"
+    }
+}

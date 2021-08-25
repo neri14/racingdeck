@@ -1,0 +1,8 @@
+{
+  "Description": "Simracing plugin.", 
+  "Name": "RacingDeck", 
+  "it.rokosz.racingdeck.racingdeck": {
+    "Name": "RacingDeck", 
+    "Tooltip": "Simracing plugin action."
+  }
+}
