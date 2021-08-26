@@ -11,7 +11,7 @@
 //==============================================================================
 
 #include "ESDConnectionManager.h"
-#include "../MyStreamDeckPlugin.h"
+#include "../RacingDeckPlugin.h"
 #include "ESDLocalizer.h"
 #include "EPLJSONUtils.h"
 
@@ -76,7 +76,7 @@ int main(int argc, const char* const argv[])
 	}
 
 	// Create the plugin
-	MyStreamDeckPlugin *plugin = new MyStreamDeckPlugin();
+	RacingDeckPlugin *plugin = new RacingDeckPlugin();
 
 	// Initialize localization helper
 	std::string language = "en";
