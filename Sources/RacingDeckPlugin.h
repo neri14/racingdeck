@@ -1,4 +1,9 @@
+#pragma once
+
+#include <mutex>
 #include "Common/ESDBasePlugin.h"
+
+class CallBackTimer;
 
 class RacingDeckPlugin : public ESDBasePlugin
 {
@@ -19,4 +24,10 @@ public:
 
 private:
 
+	void UpdateTimer();
+
+	std::mutex mVisibleContextsMutex;
+	std::set<std::string> mVisibleContexts;
+
+	CallBackTimer* mTimer;
 };
