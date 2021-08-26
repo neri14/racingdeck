@@ -24,5 +24,5 @@ Currently supported actions with current state display:
 * **TC 2** (configurable + / -; with value / without value)
 * **ABS** (configurable + / -; with value / without value)
 * **Brake Bias** (configurable + / -; with value / without value)
-* **Tire Pressure Monitor** (light up if sudden pressure drop of over threshold or drop of over x amount in y time; press to reset)
+* **Tire Pressure Monitor** (amber if sudden pressure drop of x or more (default 0.05 psi?) or drop of over y below average from z time; red if below w; press to reset)
 * etc.
