@@ -1,17 +1,13 @@
 #pragma once
 
 #include <Windows.h>
+#include "GameState.h"
 
 namespace ACC {
-
     struct SHMElement
     {
         HANDLE handle;
         unsigned char* buffer;
-    };
-
-    struct ACCStatus {
-        int lights;
     };
 
     class ACCHelper {
@@ -19,7 +15,7 @@ namespace ACC {
         ACCHelper();
         virtual ~ACCHelper();
 
-        ACCStatus getUpdate();
+        GameState getUpdate();
 
     private:
         bool initPhysics();

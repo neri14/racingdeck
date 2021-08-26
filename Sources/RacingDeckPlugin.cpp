@@ -1,8 +1,25 @@
 #include "RacingDeckPlugin.h"
 #include "ACCHelper.h"
+#include "GameState.h"
+#include "Images.h"
+#include "Windows/KeyboardHandler.h"
 
 #include <atomic>
+#include <map>
+#include <WinUser.h>
 #include "Common/ESDConnectionManager.h"
+
+namespace Consts {
+    const std::string headlightsAction = "it.rokosz.racingdeck.headlights";
+    const std::string rainLightAction = "it.rokosz.racingdeck.rainlight";
+
+    const std::map< std::string, std::vector<WORD>> actionKeys = {
+        {headlightsAction, {0x4c}}, // L
+        {rainLightAction, {VK_CONTROL, 0x4c}} //Ctrl + L
+    };
+
+    const int noVal = -127;
+}
 
 class CallBackTimer
 {
@@ -53,67 +70,90 @@ private:
 
 RacingDeckPlugin::RacingDeckPlugin()
 {
-    mHelper = new ACC::ACCHelper();
-    mTimer = new CallBackTimer();
-    mTimer->start(10, [this]()
+    accHelper = new ACC::ACCHelper();
+    callbackTimer = new CallBackTimer();
+    callbackTimer->start(100, [this]()
         {
-            this->UpdateTimer();
+            this->UpdateStates();
         });
 }
 
 RacingDeckPlugin::~RacingDeckPlugin()
 {
-    if (mHelper != nullptr)
+    if (accHelper != nullptr)
     {
-        delete mHelper;
-        mHelper = nullptr;
+        delete accHelper;
+        accHelper = nullptr;
     }
-    if (mTimer != nullptr)
+    if (callbackTimer != nullptr)
     {
-        mTimer->stop();
+        callbackTimer->stop();
 
-        delete mTimer;
-        mTimer = nullptr;
+        delete callbackTimer;
+        callbackTimer = nullptr;
     }
 }
 
-void RacingDeckPlugin::UpdateTimer() //boilerplate code
+void RacingDeckPlugin::UpdateStates()
 {
-    ACC::ACCStatus accStatus = mHelper->getUpdate();
+    GameState state = accHelper->getUpdate();
 
     if (mConnectionManager != nullptr)
     {
-        mVisibleContextsMutex.lock();
-        for (const std::string& context : mVisibleContexts)
-        {
-            mConnectionManager->SetTitle(std::to_string(accStatus.lights), context, kESDSDKTarget_HardwareAndSoftware);
+        mutex.lock();
+        for (const auto& item : contextsActions) {
+            if (item.second == Consts::headlightsAction) {
+                if (contextsStates[item.first] != static_cast<int>(state.headlights)) {
+                    mConnectionManager->SetImage(Images::getImage(state.headlights), item.first, kESDSDKTarget_HardwareAndSoftware);
+                    contextsStates[item.first] = static_cast<int>(state.headlights);
+                }
+            }
+            else if (item.second == Consts::rainLightAction) {
+                if (contextsStates[item.first] != static_cast<int>(state.rainLight)) {
+                    mConnectionManager->SetImage(Images::getImage(state.rainLight), item.first, kESDSDKTarget_HardwareAndSoftware);
+                    contextsStates[item.first] = static_cast<int>(state.rainLight);
+                }
+            }
         }
-        mVisibleContextsMutex.unlock();
+        mutex.unlock();
     }
 }
 
 void RacingDeckPlugin::KeyDownForAction(const std::string& inAction, const std::string& inContext, const json &inPayload, const std::string& inDeviceID)
 {
+    auto it = Consts::actionKeys.find(inAction);
+
+    if (it != Consts::actionKeys.end()) {
+        keysDown(it->second);
+    }
 }
 
 void RacingDeckPlugin::KeyUpForAction(const std::string& inAction, const std::string& inContext, const json &inPayload, const std::string& inDeviceID)
 {
+    auto it = Consts::actionKeys.find(inAction);
+
+    if (it != Consts::actionKeys.end()) {
+        keysUp(it->second);
+    }
+    UpdateStates();
 }
 
 void RacingDeckPlugin::WillAppearForAction(const std::string& inAction, const std::string& inContext, const json &inPayload, const std::string& inDeviceID)
 {
     // Remember the context
-    mVisibleContextsMutex.lock();
-    mVisibleContexts.insert(inContext);
-    mVisibleContextsMutex.unlock();
+    mutex.lock();
+    contextsActions[inContext] = inAction;
+    contextsStates[inContext] = Consts::noVal;
+    mutex.unlock();
 }
 
 void RacingDeckPlugin::WillDisappearForAction(const std::string& inAction, const std::string& inContext, const json &inPayload, const std::string& inDeviceID)
 {
     // Remove the context
-    mVisibleContextsMutex.lock();
-    mVisibleContexts.erase(inContext);
-    mVisibleContextsMutex.unlock();
+    mutex.lock();
+    contextsActions.erase(inContext);
+    contextsStates.erase(inContext);
+    mutex.unlock();
 }
 
 void RacingDeckPlugin::DeviceDidConnect(const std::string& inDeviceID, const json &inDeviceInfo)

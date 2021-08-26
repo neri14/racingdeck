@@ -1,24 +1,34 @@
 {
   "Actions": [
     {
-      "Icon": "icon", 
-      "Name": "RacingDeck", 
+      "Icon": "iconHeadlights", 
+      "Name": "RacingDeck Headlights [L]", 
       "States": [
         {
-          "Image": "defaultImage",
-          "TitleAlignment": "middle", 
-          "FontSize": "17"
+          "Image": "defaultImageHeadlights"
         }
       ], 
       "SupportedInMultiActions": false,
-      "Tooltip": "This action is TBD", 
-      "UUID": "it.rokosz.racingdeck.racingdeck"
+      "Tooltip": "RacingDeck Headlights controller and status.", 
+      "UUID": "it.rokosz.racingdeck.headlights"
+    },
+    {
+      "Icon": "iconRainLight", 
+      "Name": "RacingDeck Rain Light [Ctrl+L]", 
+      "States": [
+        {
+          "Image": "defaultImageRainLight"
+        }
+      ], 
+      "SupportedInMultiActions": false,
+      "Tooltip": "RacingDeck Rain Light controller and status.", 
+      "UUID": "it.rokosz.racingdeck.rainlight"
     }
   ], 
   "SDKVersion": 2,
-  "Author": "Neri", 
+  "Author": "Przemyslaw Rokosz", 
   "CodePathWin": "racingdeck.exe", 
-  "Description": "Simracing plugin.", 
+  "Description": "Simracing controllers and displays plugin.", 
   "Name": "RacingDeck", 
   "Icon": "pluginIcon", 
   "URL": "https://www.rokosz.it/", 

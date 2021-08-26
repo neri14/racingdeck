@@ -22,24 +22,51 @@ namespace ACC {
         cleanup();
     }
 
-    ACCStatus ACCHelper::getUpdate()
+    GameState ACCHelper::getUpdate()
     {
-        SPageFilePhysics* pagePhysics = (SPageFilePhysics*)shmPhysics.buffer;
-        SPageFileGraphic* pageGraphics = (SPageFileGraphic*)shmGraphics.buffer;
-        SPageFileStatic* pageStatic = (SPageFileStatic*)shmStatic.buffer;
+        raw::SPageFilePhysics* pagePhysics = (raw::SPageFilePhysics*)shmPhysics.buffer;
+        raw::SPageFileGraphic* pageGraphics = (raw::SPageFileGraphic*)shmGraphics.buffer;
+        raw::SPageFileStatic* pageStatic = (raw::SPageFileStatic*)shmStatic.buffer;
 
-        ACCStatus status;
+        GameState state;
         
-        status.lights = pageGraphics->lightsStage;
+        //Headlights
+        switch (pageGraphics->lightsStage) {
+        case 0:
+            state.headlights = GameState::Headlights::Off;
+            break;
+        case 1:
+            state.headlights = GameState::Headlights::LowBeam;
+            break;
+        case 2:
+            state.headlights = GameState::Headlights::HighBeam;
+            break;
+        default:
+            state.headlights = GameState::Headlights::Off;
+            break;
+        }
+
+        //RainLight
+        switch (pageGraphics->rainLights) {
+        case 0:
+            state.rainLight = GameState::RainLight::Off;
+            break;
+        case 1:
+            state.rainLight = GameState::RainLight::On;
+            break;
+        default:
+            state.rainLight = GameState::RainLight::Off;
+            break;
+        }
         
-        return status;
+        return state;
     }
 
     bool ACCHelper::initPhysics()
     {
         shmPhysics.handle = CreateFileMapping(
             INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE,
-            0, sizeof(SPageFilePhysics), shmname_physics);
+            0, sizeof(raw::SPageFilePhysics), shmname_physics);
 
         if (!shmPhysics.handle) {
             std::cerr << "CreateFileMapping failed for " << shmname_physics << std::endl;
@@ -47,7 +74,7 @@ namespace ACC {
         }
 
         shmPhysics.buffer = (unsigned char*)MapViewOfFile(
-            shmPhysics.handle, FILE_MAP_READ, 0, 0, sizeof(SPageFilePhysics));
+            shmPhysics.handle, FILE_MAP_READ, 0, 0, sizeof(raw::SPageFilePhysics));
 
         if (!shmPhysics.handle) {
             std::cerr << "MapViewOfFile failed for " << shmname_physics << std::endl;
@@ -60,7 +87,7 @@ namespace ACC {
     {
         shmGraphics.handle = CreateFileMapping(
             INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE,
-            0, sizeof(SPageFileGraphic), shmname_graphics);
+            0, sizeof(raw::SPageFileGraphic), shmname_graphics);
 
         if (!shmGraphics.handle) {
             std::cerr << "CreateFileMapping failed for " << shmname_graphics << std::endl;
@@ -68,7 +95,7 @@ namespace ACC {
         }
 
         shmGraphics.buffer = (unsigned char*)MapViewOfFile(
-            shmGraphics.handle, FILE_MAP_READ, 0, 0, sizeof(SPageFileGraphic));
+            shmGraphics.handle, FILE_MAP_READ, 0, 0, sizeof(raw::SPageFileGraphic));
 
         if (!shmGraphics.handle) {
             std::cerr << "MapViewOfFile failed for " << shmname_graphics << std::endl;
@@ -81,7 +108,7 @@ namespace ACC {
     {
         shmStatic.handle = CreateFileMapping(
             INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE,
-            0, sizeof(SPageFileStatic), shmname_static);
+            0, sizeof(raw::SPageFileStatic), shmname_static);
 
         if (!shmStatic.handle) {
             std::cerr << "CreateFileMapping failed for " << shmname_static << std::endl;
@@ -89,7 +116,7 @@ namespace ACC {
         }
 
         shmStatic.buffer = (unsigned char*)MapViewOfFile(
-            shmStatic.handle, FILE_MAP_READ, 0, 0, sizeof(SPageFileStatic));
+            shmStatic.handle, FILE_MAP_READ, 0, 0, sizeof(raw::SPageFileStatic));
 
         if (!shmStatic.handle) {
             std::cerr << "MapViewOfFile failed for " << shmname_static << std::endl;

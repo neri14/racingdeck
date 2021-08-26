@@ -172,6 +172,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\GameState.h" />
     <ClInclude Include="..\ACCHelper.h" />
     <ClInclude Include="..\Common\ACC.h" />
     <ClInclude Include="..\Common\EPLJSONUtils.h" />
@@ -180,7 +181,9 @@
     <ClInclude Include="..\Common\ESDLocalizer.h" />
     <ClInclude Include="..\Common\ESDSDKDefines.h" />
     <ClInclude Include="..\Common\ESDUtilities.h" />
+    <ClInclude Include="..\Images.h" />
     <ClInclude Include="..\RacingDeckPlugin.h" />
+    <ClInclude Include="KeyboardHandler.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
@@ -214,7 +217,19 @@
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">/FI"pch.h" %(AdditionalOptions)</AdditionalOptions>
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">/FI"pch.h" %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
+    <ClCompile Include="..\Images.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">/FI"pch.h" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">/FI"pch.h" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">/FI"pch.h" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">/FI"pch.h" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
     <ClCompile Include="..\RacingDeckPlugin.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">/FI"pch.h" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">/FI"pch.h" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">/FI"pch.h" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">/FI"pch.h" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="KeyboardHandler.cpp">
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">/FI"pch.h" %(AdditionalOptions)</AdditionalOptions>
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">/FI"pch.h" %(AdditionalOptions)</AdditionalOptions>
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">/FI"pch.h" %(AdditionalOptions)</AdditionalOptions>

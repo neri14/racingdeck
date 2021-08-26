@@ -28,11 +28,12 @@ public:
 
 private:
 
-    void UpdateTimer();
+    void UpdateStates();
 
-    std::mutex mVisibleContextsMutex;
-    std::set<std::string> mVisibleContexts;
+    std::mutex mutex;
+    std::map<std::string, std::string> contextsActions;
+    std::map<std::string, int> contextsStates;
 
-    CallBackTimer* mTimer;
-    ACC::ACCHelper* mHelper;
+    CallBackTimer* callbackTimer;
+    ACC::ACCHelper* accHelper;
 };
