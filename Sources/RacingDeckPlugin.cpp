@@ -1,4 +1,5 @@
 #include "RacingDeckPlugin.h"
+#include "ACCHelper.h"
 
 #include <atomic>
 #include "Common/ESDConnectionManager.h"
@@ -52,8 +53,9 @@ private:
 
 RacingDeckPlugin::RacingDeckPlugin()
 {
+    mHelper = new ACC::ACCHelper();
     mTimer = new CallBackTimer();
-    mTimer->start(1000, [this]()
+    mTimer->start(10, [this]()
         {
             this->UpdateTimer();
         });
@@ -61,6 +63,11 @@ RacingDeckPlugin::RacingDeckPlugin()
 
 RacingDeckPlugin::~RacingDeckPlugin()
 {
+    if (mHelper != nullptr)
+    {
+        delete mHelper;
+        mHelper = nullptr;
+    }
     if (mTimer != nullptr)
     {
         mTimer->stop();
@@ -72,17 +79,14 @@ RacingDeckPlugin::~RacingDeckPlugin()
 
 void RacingDeckPlugin::UpdateTimer() //boilerplate code
 {
-    static int currentValue = 0;
-    //
-    // Warning: UpdateTimer() is running in the timer thread
-    //
+    ACC::ACCStatus accStatus = mHelper->getUpdate();
+
     if (mConnectionManager != nullptr)
     {
         mVisibleContextsMutex.lock();
-        currentValue = currentValue < 100 ? currentValue+1 : 0; 
         for (const std::string& context : mVisibleContexts)
         {
-            mConnectionManager->SetTitle(std::to_string(currentValue), context, kESDSDKTarget_HardwareAndSoftware);
+            mConnectionManager->SetTitle(std::to_string(accStatus.lights), context, kESDSDKTarget_HardwareAndSoftware);
         }
         mVisibleContextsMutex.unlock();
     }
