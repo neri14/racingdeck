@@ -10,7 +10,14 @@ struct GameState {
         Off,
         On
     };
+    enum class Wipers {
+        Off,
+        OnSpeed1,
+        OnSpeed2,
+        OnSpeed3
+    };
 
     Headlights headlights = Headlights::Off;
     RainLight rainLight = RainLight::Off;
+    Wipers wipers = Wipers::Off;
 };

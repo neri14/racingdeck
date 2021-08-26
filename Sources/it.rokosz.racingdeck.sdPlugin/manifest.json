@@ -23,6 +23,18 @@
       "SupportedInMultiActions": false,
       "Tooltip": "RacingDeck Rain Light controller and status.", 
       "UUID": "it.rokosz.racingdeck.rainlight"
+    },
+    {
+      "Icon": "iconWipers", 
+      "Name": "RacingDeck Wipers [Alt+R]", 
+      "States": [
+        {
+          "Image": "defaultImageWipers"
+        }
+      ], 
+      "SupportedInMultiActions": false,
+      "Tooltip": "RacingDeck Wipers controller and status.", 
+      "UUID": "it.rokosz.racingdeck.wipers"
     }
   ], 
   "SDKVersion": 2,
@@ -32,7 +44,7 @@
   "Name": "RacingDeck", 
   "Icon": "pluginIcon", 
   "URL": "https://www.rokosz.it/", 
-  "Version": "0.1",
+  "Version": "0.2",
   "OS": [
     {
         "Platform": "windows", 

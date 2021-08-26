@@ -58,6 +58,25 @@ namespace ACC {
             state.rainLight = GameState::RainLight::Off;
             break;
         }
+
+        //Wipers
+        switch (pageGraphics->wiperLV) {
+        case 0:
+            state.wipers = GameState::Wipers::Off;
+            break;
+        case 1:
+            state.wipers = GameState::Wipers::OnSpeed1;
+            break;
+        case 2:
+            state.wipers = GameState::Wipers::OnSpeed2;
+            break;
+        case 3:
+            state.wipers = GameState::Wipers::OnSpeed3;
+            break;
+        default:
+            state.wipers = GameState::Wipers::Off;
+            break;
+        }
         
         return state;
     }

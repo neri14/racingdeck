@@ -12,10 +12,12 @@
 namespace Consts {
     const std::string headlightsAction = "it.rokosz.racingdeck.headlights";
     const std::string rainLightAction = "it.rokosz.racingdeck.rainlight";
+    const std::string wipersAction = "it.rokosz.racingdeck.wipers";
 
     const std::map< std::string, std::vector<WORD>> actionKeys = {
         {headlightsAction, {0x4c}}, // L
-        {rainLightAction, {VK_CONTROL, 0x4c}} //Ctrl + L
+        {rainLightAction, {VK_CONTROL, 0x4c}}, //Ctrl + L
+        {wipersAction, {VK_LMENU, 0x52}} //Alt + R
     };
 
     const int noVal = -127;
@@ -112,6 +114,12 @@ void RacingDeckPlugin::UpdateStates()
                 if (contextsStates[item.first] != static_cast<int>(state.rainLight)) {
                     mConnectionManager->SetImage(Images::getImage(state.rainLight), item.first, kESDSDKTarget_HardwareAndSoftware);
                     contextsStates[item.first] = static_cast<int>(state.rainLight);
+                }
+            }
+            else if (item.second == Consts::wipersAction) {
+                if (contextsStates[item.first] != static_cast<int>(state.wipers)) {
+                    mConnectionManager->SetImage(Images::getImage(state.wipers), item.first, kESDSDKTarget_HardwareAndSoftware);
+                    contextsStates[item.first] = static_cast<int>(state.wipers);
                 }
             }
         }
