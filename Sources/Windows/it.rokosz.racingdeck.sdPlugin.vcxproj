@@ -176,6 +176,9 @@ del /f "$(SolutionDir)..\..\Out\it.rokosz.racingdeck.streamDeckPlugin"
 xcopy /F "$(SolutionDir)$(Platform)\$(Configuration)\$(TargetName).exe" "$(SolutionDir)..\it.rokosz.racingdeck.sdPlugin\"
 if exist "$(SolutionDir)..\..\Tools\DistributionTool.exe" "$(SolutionDir)..\..\Tools\DistributionTool.exe" -b -i "$(SolutionDir)..\it.rokosz.racingdeck.sdPlugin" -o "$(SolutionDir)..\..\Out"</Command>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>python $(SolutionDir)..\..\Tools\ImageGenerator.py "$(SolutionDir)..\Images" "$(SolutionDir).." "ImagesGen"</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\GameState.h" />
@@ -188,6 +191,7 @@ if exist "$(SolutionDir)..\..\Tools\DistributionTool.exe" "$(SolutionDir)..\..\T
     <ClInclude Include="..\Common\ESDSDKDefines.h" />
     <ClInclude Include="..\Common\ESDUtilities.h" />
     <ClInclude Include="..\Images.h" />
+    <ClInclude Include="..\ImagesGen.h" />
     <ClInclude Include="..\RacingDeckPlugin.h" />
     <ClInclude Include="KeyboardHandler.h" />
     <ClInclude Include="pch.h" />
@@ -224,6 +228,12 @@ if exist "$(SolutionDir)..\..\Tools\DistributionTool.exe" "$(SolutionDir)..\..\T
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">/FI"pch.h" %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <ClCompile Include="..\Images.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">/FI"pch.h" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">/FI"pch.h" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">/FI"pch.h" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">/FI"pch.h" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\ImagesGen.cpp">
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">/FI"pch.h" %(AdditionalOptions)</AdditionalOptions>
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">/FI"pch.h" %(AdditionalOptions)</AdditionalOptions>
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">/FI"pch.h" %(AdditionalOptions)</AdditionalOptions>
