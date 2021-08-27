@@ -1,6 +1,8 @@
 ## Plugin Packaging
 
-https://developer.elgato.com/documentation/stream-deck/sdk/exporting-your-plugin/
+Automated - if DistributionTool.exe from Elgato is placed into Tools directory.
+
+Based on: https://developer.elgato.com/documentation/stream-deck/sdk/exporting-your-plugin/
 
 
 ## Base64 encoding images using python

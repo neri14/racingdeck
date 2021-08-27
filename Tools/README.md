@@ -1,0 +1,1 @@
+Place DistributionTool.exe here to enable post-build command to create it.rokosz.racingdeck.streamDeckPlugin in Out directory.

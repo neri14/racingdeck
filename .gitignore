@@ -2,3 +2,5 @@
 Sources/Windows/it.rokosz.racingdeck.sdPlugin.vcxproj.user
 Sources/Windows/x64
 Sources/it.rokosz.racingdeck.sdPlugin/racingdeck.exe
+Tools/DistributionTool.exe
+Out/it.rokosz.racingdeck.streamDeckPlugin

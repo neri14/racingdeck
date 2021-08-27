@@ -170,6 +170,12 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>del /f "$(SolutionDir)..\it.rokosz.racingdeck.sdPlugin\$(TargetName).exe"
+del /f "$(SolutionDir)..\..\Out\it.rokosz.racingdeck.streamDeckPlugin"
+xcopy /F "$(SolutionDir)$(Platform)\$(Configuration)\$(TargetName).exe" "$(SolutionDir)..\it.rokosz.racingdeck.sdPlugin\"
+if exist "$(SolutionDir)..\..\Tools\DistributionTool.exe" "$(SolutionDir)..\..\Tools\DistributionTool.exe" -b -i "$(SolutionDir)..\it.rokosz.racingdeck.sdPlugin" -o "$(SolutionDir)..\..\Out"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\GameState.h" />
