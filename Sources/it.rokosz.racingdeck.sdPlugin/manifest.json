@@ -44,7 +44,7 @@
   "Name": "RacingDeck", 
   "Icon": "pluginIcon", 
   "URL": "https://www.rokosz.it/", 
-  "Version": "0.2",
+  "Version": "0.2-dev-pressure-monitor",
   "OS": [
     {
         "Platform": "windows", 
