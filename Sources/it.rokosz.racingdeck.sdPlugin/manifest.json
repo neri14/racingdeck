@@ -35,6 +35,18 @@
       "SupportedInMultiActions": false,
       "Tooltip": "RacingDeck Wipers controller and status.", 
       "UUID": "it.rokosz.racingdeck.wipers"
+    },
+    {
+      "Icon": "iconPressure",
+      "Name": "Pressure Monitoring",
+      "States": [
+        {
+          "Image": "defaultImagePressure"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Pressure monitoring.",
+      "UUID": "it.rokosz.racingdeck.pressure"
     }
   ], 
   "SDKVersion": 2,
@@ -44,7 +56,7 @@
   "Name": "RacingDeck", 
   "Icon": "pluginIcon", 
   "URL": "https://www.rokosz.it/", 
-  "Version": "0.2-dev-pressure-monitor",
+  "Version": "0.2.1",
   "OS": [
     {
         "Platform": "windows", 
